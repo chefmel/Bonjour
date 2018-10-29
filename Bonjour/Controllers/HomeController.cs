@@ -10,28 +10,32 @@ namespace Bonjour.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string firstName, string lastName, string langSelect)
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            ViewBag.FirstName = firstName;
+            ViewBag.LastName = lastName;
+            ViewBag.langSelect = langSelect;
+            ViewBag.messageOut = CreateMessage(firstName, langSelect);
 
             return View();
         }
 
-        public IActionResult Error()
+        public static string CreateMessage(string name, string lang)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            if (name != null && lang != null)
+            {
+                return string.Format("{0} {1}", lang, name);
+            }
+            return "";
+        }    
+
+
+
+
+
+    }
+
+    internal class CreateMessage
+    {
     }
 }
